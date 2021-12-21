@@ -9,9 +9,9 @@
 #include <cstring>
 using namespace std;
 typedef long long lld;
-//Dirac do all three;
+// Dirac do all three;
 map<string, vector<lld>> gameStates;
-long long recCalls = 0;
+lld recCalls = 0;
 vector<lld> rec(int whoTurn, int turn, int P1, int P2, int S1, int S2)
 {
     recCalls++;
@@ -21,32 +21,29 @@ vector<lld> rec(int whoTurn, int turn, int P1, int P2, int S1, int S2)
         s << whoTurn << "," << turn << "," << P1 << "," << P1 << "," << P2 << "," << S1 << "," << S2;
         return s.str();
     };
-    if (S1 >= 21 || S2 >= 21)
-    { //If someone reaches 21 return wich reached it first
-        vector<lld> one = {1, 0};
-        vector<lld> two = {0, 1};
-        if (S1 >= 21)
-            return one;
-        return two;
-    }
-    //string s stores the string index of our current gamestate
+    // return if someone already won
+    if (S1 >= 21)
+        return {1, 0};
+    if (S2 >= 21)
+        return {0, 1};
+    // string s stores the string index of our current gamestate
     string s = hash();
-    //Check if this gameState is reached in memory, if true return
+    // Check if this gameState is reached in memory, if true return
     if (gameStates.find(s) != gameStates.end())
         return gameStates[s];
-    //If not try every combination of the dices, 27
-    vector<long long> arr(2, 0);
+    // If not try every combination of the dices, 27
+    vector<lld> arr(2, 0);
     for (int firstDie = 1; firstDie <= 3; firstDie++)
     {
         for (int secDie = 1; secDie <= 3; secDie++)
         {
             for (int thirdDie = 1; thirdDie <= 3; thirdDie++)
             {
-                //calculate and see who's turn it is, start next recursion with updated Values
+                // calculate and see who's turn it is, start next recursion with updated Values
                 int move = firstDie + secDie + thirdDie;
                 int n1 = ((P1 + move - 1) % 10) + 1;
                 int n2 = ((P2 + move - 1) % 10) + 1;
-                vector<long long> res;
+                vector<lld> res;
                 if (whoTurn == 1)
                 {
                     res = rec(2, (turn + 1), n1, P2, (S1 + n1), S2);
@@ -61,7 +58,7 @@ vector<lld> rec(int whoTurn, int turn, int P1, int P2, int S1, int S2)
             }
         }
     }
-    //update Gamestate and return
+    // update Gamestate and return
     gameStates[s] = arr;
     return arr;
 }
