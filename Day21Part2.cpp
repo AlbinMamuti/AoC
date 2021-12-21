@@ -10,21 +10,31 @@
 using namespace std;
 typedef long long lld;
 //Dirac do all three;
-map<string, vector<lld> > gameStates;
-
+map<string, vector<lld>> gameStates;
+long long recCalls = 0;
 vector<lld> rec(int whoTurn, int turn, int P1, int P2, int S1, int S2)
 {
-    if (S1 >= 21 || S2 >= 21)
+    recCalls++;
+    auto hash = [whoTurn, turn, P1, P2, S1, S2]()
     {
+        stringstream s;
+        s << whoTurn << "," << turn << "," << P1 << "," << P1 << "," << P2 << "," << S1 << "," << S2;
+        return s.str();
+    };
+    if (S1 >= 21 || S2 >= 21)
+    { //If someone reaches 21 return wich reached it first
         vector<lld> one = {1, 0};
         vector<lld> two = {0, 1};
         if (S1 >= 21)
             return one;
         return two;
     }
-    string s = to_string(whoTurn) + "," + to_string(turn) + "," + to_string(P1) + "," + to_string(P2) + "," + to_string(S1) + "," + to_string(S2);
+    //string s stores the string index of our current gamestate
+    string s = hash();
+    //Check if this gameState is reached in memory, if true return
     if (gameStates.find(s) != gameStates.end())
         return gameStates[s];
+    //If not try every combination of the dices, 27
     vector<long long> arr(2, 0);
     for (int firstDie = 1; firstDie <= 3; firstDie++)
     {
@@ -32,6 +42,7 @@ vector<lld> rec(int whoTurn, int turn, int P1, int P2, int S1, int S2)
         {
             for (int thirdDie = 1; thirdDie <= 3; thirdDie++)
             {
+                //calculate and see who's turn it is, start next recursion with updated Values
                 int move = firstDie + secDie + thirdDie;
                 int n1 = ((P1 + move - 1) % 10) + 1;
                 int n2 = ((P2 + move - 1) % 10) + 1;
@@ -44,22 +55,19 @@ vector<lld> rec(int whoTurn, int turn, int P1, int P2, int S1, int S2)
                 {
                     res = rec(1, (turn + 1), P1, n2, S1, (S2 + n2));
                 }
+                // add the values returned from Recursion , arr[0] == Wins of player 1, arr[1] == Wins of Player2
                 arr[0] += res[0];
                 arr[1] += res[1];
             }
         }
     }
+    //update Gamestate and return
     gameStates[s] = arr;
     return arr;
 }
 int main()
 {
-    int play1Pos = 5;
-    int play2Pos = 6;
-    int play1Points = 0;
-    int play2Points = 0;
-    int turn = 1;
-    int playerTurn = 1;
-    vector<lld> result = rec(playerTurn, 1, 5, 6, 0, 0);
+    vector<lld> result = rec(1, 1, 5, 6, 0, 0);
     cout << result[0] << ", " << result[1] << endl;
+    cout << "Recursion Calls: " << recCalls << endl;
 }

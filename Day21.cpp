@@ -9,21 +9,17 @@
 #include <cstring>
 using namespace std;
 
-int d = 1;
-
-int Roll()
-{
-    return d++ + d++ + d++;
-}
-
 int main()
 {
-
     int scorePlay1 = 0;
     int scorePlay2 = 0;
     int posPlay1 = 5;
-    int posPlay2 = 6; //0,...,9
-
+    int posPlay2 = 6;
+    int d = 1;
+    auto Roll = [&d]()
+    {
+        return (d++) + (d++) + (d++);
+    };
     for (int i = 1; i < 2500; i++)
     {
         int move = Roll();
