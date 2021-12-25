@@ -69,7 +69,7 @@ int main()
     while (move(state))
     {
         // print(state);
-        cout << endl;
+        // cout << endl;
         steps++;
     }
     cout << ++steps << endl;

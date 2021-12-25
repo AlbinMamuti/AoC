@@ -45,11 +45,12 @@ vector<Beacon> getIteration(vector<Beacon> ref, int iteration)
         IT(1, b.x, -b.z, b.y)
         IT(2, b.x, -b.y, -b.z)
         IT(3, b.x, b.z, -b.y)
-            IT(4, b.y, b.z, b.x) IT(5, b.y, -b.x, b.z) IT(6, b.y, -b.z, -b.x) IT(7, b.y, b.x, -b.z)
-                IT(8, b.z, b.x, b.y) IT(9, b.z, -b.y, b.x) IT(10, b.z, -b.x, -b.y) IT(11, b.z, b.y, -b.x)
-                    IT(12, -b.z, -b.y, -b.x) IT(13, -b.z, b.x, -b.y) IT(14, -b.z, b.y, b.x) IT(15, -b.z, -b.x, b.y)
-                        IT(16, -b.y, -b.x, -b.z) IT(17, -b.y, b.z, -b.x) IT(18, -b.y, b.x, b.z) IT(19, -b.y, -b.z, b.x)
-                            IT(20, -b.x, -b.z, -b.y) IT(21, -b.x, b.y, -b.z) IT(22, -b.x, b.z, b.y) IT(23, -b.x, -b.y, b.z)
+        IT(4, b.y, b.z, b.x)
+        IT(5, b.y, -b.x, b.z) IT(6, b.y, -b.z, -b.x) IT(7, b.y, b.x, -b.z)
+            IT(8, b.z, b.x, b.y) IT(9, b.z, -b.y, b.x) IT(10, b.z, -b.x, -b.y) IT(11, b.z, b.y, -b.x)
+                IT(12, -b.z, -b.y, -b.x) IT(13, -b.z, b.x, -b.y) IT(14, -b.z, b.y, b.x) IT(15, -b.z, -b.x, b.y)
+                    IT(16, -b.y, -b.x, -b.z) IT(17, -b.y, b.z, -b.x) IT(18, -b.y, b.x, b.z) IT(19, -b.y, -b.z, b.x)
+                        IT(20, -b.x, -b.z, -b.y) IT(21, -b.x, b.y, -b.z) IT(22, -b.x, b.z, b.y) IT(23, -b.x, -b.y, b.z)
     }
     return s;
 };
@@ -186,7 +187,7 @@ int main(int argc, char *argv[])
         newGrid.erase(unique(newGrid.begin(), newGrid.end()), newGrid.end());
         grid = newGrid;
         scannerPos.push_back(t);
-        cout << "Progress" << endl;
+        // cout << "Progress" << endl;
     }
     cout << grid.size() << endl;
     int maxDist = -1;

@@ -93,7 +93,7 @@ Triplet read_input(string line)
 
 int main()
 {
-    string filename = "t.txt";
+    string filename = "inputPartOne.txt";
     ifstream input_file(filename);
     vector<Triplet> input;
     lld ans = 0;
