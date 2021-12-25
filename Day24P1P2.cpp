@@ -16,7 +16,7 @@ typedef unsigned long long lld;
 char MODO[15] = {'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '\0'};
 int main()
 {
-    ifstream input("C:\\Users\\Albin\\OneDrive\\Desktop\\AoC\\AoC\\inputPartOne.txt");
+    ifstream input("inputPartOne.txt");
     lld w, x, y, z;
     string line;
     int pos = 0;
